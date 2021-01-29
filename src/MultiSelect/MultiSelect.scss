@@ -1,4 +1,155 @@
 //scss stub for multiselect
 .MultiSelect{
+    // display: block;
+    margin: auto;
+    width: 450px;
+    height: 450px;
+    border: 1px solid rgb(128,168,38);
+    text-align: center;
+    background-color: #fff;
+    animation: unfoldIn 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
 
+    h1{
+        font-size: 40px;
+        background-color: rgb(128,168,38);
+        padding: 10px;
+        margin-top: 0;
+        border-bottom: 4px solid rgb(188, 246, 53);
+    }
+
+    .answerBtn{
+        display: block;
+        color: rgb(0, 0, 0);
+        font-size: 35px;
+        margin: 15px;
+        margin-left: 40px;
+        border: none;
+        background-color: #fff;
+        outline: none;
+        border-radius: 5px;
+    }
+    .selected{
+       background-color: rgb(128,168,38);
+       transition: background-color 0.5s ease;
+    }
+    .deselected{
+        background-color: #fff;
+        transition: background-color 0.5s ease;
+    }
+
+    .answerBtn:hover{
+        animation:pulse .75s infinite;
+    }
+
+    .submitBtn{
+        font-size: 30px;
+        margin-top: 10px;
+        background-color: rgb(128,168,38);
+        border-radius: 5px;
+        padding: 7px;
+        border: 3px solid#fff;
+    }
+    .submitBtn:hover{
+        border: 3px solid green;
+        transition: border .3s ease;
+    }
+
+    .feedback{
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.5);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
+
+        &.incorrect{
+            h1{
+            background-color: lightcoral;
+            border-bottom: 4px solid rgb(221, 57, 57);
+            }
+        }
+
+        .feedbackContent{
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            background-color: white;
+            padding-bottom: 10px;
+            width: 24rem;
+            animation: modalFly 1s;
+
+            .optionIncorrect{
+                color: lightcoral;
+                display: block;
+                font-size: 25px;
+            }
+            .optionCorrect{
+                color: green;
+                display: block;
+                font-size: 25px;
+            }
+
+            button{
+                border: none;
+                font-size: 20px;
+                width: 50px;
+                padding: 7px;
+                border-radius: 5px;
+                background-color: lightgray;
+                transition: 1s;
+                color: gray;
+            }
+            button:hover{
+                color: black;
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes modalFly{
+    0%{
+        transform:translateY(-1500px) skewY(30deg) scaleY(1.3);
+    }
+    70% {
+        transform:translateY(30px) skewY(0deg) scaleY(.9);
+    }
+    100% {
+        transform:translateX(0px) skewX(0deg) scaleX(1);
+    }
+}
+
+@keyframes fadeIn {
+    from{
+        background-color: rgba(129, 168, 38, 0);
+    }
+    to{
+        background-color: rgba(128,168,38,1);
+    }
+}
+
+
+@keyframes unfoldIn {
+  0% {
+    transform:scaleY(.005) scaleX(0);
+  }
+  50% {
+    transform:scaleY(.005) scaleX(1);
+  }
+  100% {
+    transform:scaleY(1) scaleX(1);
+  }
 }

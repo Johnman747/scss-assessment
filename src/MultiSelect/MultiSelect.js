@@ -1,4 +1,4 @@
-import React, {} from 'react'
+import React, { useState, useEffect } from 'react'
 import './MultiSelect.scss'
 
 // this is a stub for you to develop the following
@@ -16,9 +16,61 @@ import './MultiSelect.scss'
 */
 
 const MultiSelect = props => {
+    const [selected, setSelected] = useState({ 0: false, 1: false, 2: false, 3: false });
+    const [correct, setCorrect] = useState(null);
+    const [modal, setModal] = useState(false);
+
+    const handleSelect = (i, boolean) => {
+        setSelected(prevState => ({ ...prevState, [i]: boolean }))
+    }
+
+    const handleSubmit = (event) => {
+        for(let option in props.data.options){
+            console.log(props.data.options[option].correct)
+            if(!props.data.options[option].correct == selected[option] || !props.data.options[option].correct == undefined){
+                setCorrect(false)
+            }else{
+                setCorrect(true)
+            }
+        }
+        setModal(true)
+    }
+
     return (
         <div className={`MultiSelect`}>
-            multi-select implementation goes here
+            <h1>
+                {props.data.questionText}
+            </h1>
+            {props.data.options.map((option, optionIndex) => {
+                let letter = ['A.', 'B.', 'C.', 'D.']
+                return <button className={`answerBtn ${selected[optionIndex] ? `selected` : 'deselected'}`} onClick={() => { handleSelect(optionIndex, !selected[optionIndex]) }}>
+                    {`${letter[optionIndex]} ${option.text}`}
+                </button>
+            })
+            }
+            <button className="submitBtn" onClick={handleSubmit}>Submit</button>
+            {modal &&
+                <div className={`feedback ${correct? 'correct': 'incorrect'}`}>
+                    <div className={`feedbackContent`}>
+                        <h1>
+                            {correct ?
+                                props.data.feedback.correct.header
+                                :
+                                props.data.feedback.incorrect.header
+                            }
+                        </h1>
+                        {props.data.options.map((option, optionIndex) => {
+                            let letter = ['A.', 'B.', 'C.', 'D.']
+
+                            return <p className={`${option.correct == selected[optionIndex] || option.correct == undefined ? 'optionCorrect' : 'optionIncorrect'}`}>
+                                {`${option.correct == selected[optionIndex] || option.correct == undefined ? `Correct` : 'Incorrect'} ${letter[optionIndex]} ${option.text}`}
+                            </p>
+                        })
+                        }
+                        <button onClick={props.onComplete}>OK</button>
+                    </div>
+                </div>
+            }
         </div>
     )
 }
