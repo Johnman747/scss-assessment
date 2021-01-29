@@ -26,11 +26,16 @@ const MultiSelect = props => {
 
     const handleSubmit = (event) => {
         for(let option in props.data.options){
-            console.log(props.data.options[option].correct)
-            if(!props.data.options[option].correct == selected[option] || !props.data.options[option].correct == undefined){
-                setCorrect(false)
-            }else{
+            if(props.data.options[option].correct == undefined){
+                if(selected[option] === false){
+                    setCorrect(true)
+                }
+            }else if(props.data.options[option].correct == selected[option]){
                 setCorrect(true)
+            }else{
+                console.log(option)
+                setCorrect(false)
+                break
             }
         }
         setModal(true)
@@ -60,10 +65,20 @@ const MultiSelect = props => {
                             }
                         </h1>
                         {props.data.options.map((option, optionIndex) => {
-                            let letter = ['A.', 'B.', 'C.', 'D.']
+                            let letter = ['A.', 'B.', 'C.', 'D.'];
+                            let showCorrect;
+                            if(option.correct == undefined){
+                                if(selected[optionIndex] === false){
+                                    showCorrect = true;
+                                }
+                            }else if(option.correct == selected[optionIndex]){
+                                showCorrect = true;
+                            }else{
+                                showCorrect = false;
+                            }
 
-                            return <p className={`${option.correct == selected[optionIndex] || option.correct == undefined ? 'optionCorrect' : 'optionIncorrect'}`}>
-                                {`${option.correct == selected[optionIndex] || option.correct == undefined ? `Correct` : 'Incorrect'} ${letter[optionIndex]} ${option.text}`}
+                            return <p className={`${showCorrect ? 'optionCorrect' : 'optionIncorrect'}`}>
+                                {`${showCorrect ? `Correct` : 'Incorrect'} ${letter[optionIndex]} ${option.text}`}
                             </p>
                         })
                         }

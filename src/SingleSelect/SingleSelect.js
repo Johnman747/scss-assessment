@@ -28,7 +28,6 @@ const SingleSelect = props => {
                 {props.data.questionText}
             </h1>
             {
-                // selected === -1 &&
                 props.data.options.map((option, optionIndex) => {
                     let letter = ['A.', 'B.', 'C.', 'D.']
                     return <button className="answerBtn" onClick={() => { handleSelect(optionIndex) }}>{`${letter[optionIndex]} ${option.text}`}</button>
